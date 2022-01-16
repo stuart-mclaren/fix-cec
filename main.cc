@@ -331,12 +331,15 @@ void handleDenonProtocolMessage(char *read_buf){
 		if (strcmp("SITUNER", read_buf) == 0) {
 			/* This may or may not have been triggered by initial SI? */
 			SI = tuner;
+			power_on_projector();
 		} else if (strcmp("SIPHONO", read_buf) == 0) {
 			/* This may or may not have been triggered by initial SI? */
 			SI = phono;
+			power_on_projector();
 		} else if (strcmp("SITV", read_buf) == 0) {
 			/* This may or may not have been triggered by initial SI? */
 			SI = tv;
+			power_on_projector();
 		} else if (strcmp("SIDVD", read_buf) == 0) {
 			if (SI == si_unknown ){
 				/* This was triggered by initial SI? */
