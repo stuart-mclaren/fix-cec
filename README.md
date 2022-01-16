@@ -19,11 +19,10 @@ address.
 
 ![Overview](./doc/fix-cec.svg) 
 
-Running the code (main.cc) on the Raspberry Pi means that the Pi
-will notice when the Denon AVR is switched on and it will then
-switch on the Optima projector. Similarly, when the Denon AVR
-is switched off, the Pi will notice and switch off the Optima
-projector.
+Running the code (main.cc) on the Raspberry Pi means that the Pi will
+notice when the Denon AVR is switched on and it will then switch on the
+Optima projector (via its HDMI cable). Similarly, when the Denon AVR is
+switched off, the Pi will notice and switch off the Optima projector.
 
 ## Setting up the Denon AVR
 
