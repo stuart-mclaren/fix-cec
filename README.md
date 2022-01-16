@@ -108,14 +108,14 @@ enter the IP address of your Denon AVR.
 Change this line:
 
 ```
-#define ip_address "192.168.1.45"
+#define IPADDR "192.168.1.45"
 ```
 
 to match your Denon AVR's IP address. Eg if the IP
 address is `192.168.0.100` change the line to:
 
 ```
-#define ip_address "192.168.0.100"
+#define IPADDR "192.168.0.100"
 ```
 
 ### Compiling `fix-cec`

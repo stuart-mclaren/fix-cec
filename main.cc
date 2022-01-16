@@ -20,7 +20,7 @@
 
 /* Change the IP address below to the IP address of your AVR */
 
-#define ip_address "192.168.1.45"
+#define IPADDR "192.168.1.45"
 
 /* for hdmi */
 #include <bcm_host.h>
@@ -391,7 +391,7 @@ int watch_denon() {
          {
                  printf("Could not create socket");
          }
-         server.sin_addr.s_addr = inet_addr(ip_address);
+         server.sin_addr.s_addr = inet_addr(IPADDR);
          server.sin_family = AF_INET;
          server.sin_port = htons( 23 );
 	 setsockopt(socket_desc, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
@@ -423,7 +423,7 @@ int watch_denon() {
                  		printf("Could not recreate socket");
 				return 1;
          		}
-         		server.sin_addr.s_addr = inet_addr(ip_address);
+         		server.sin_addr.s_addr = inet_addr(IPADDR);
          		server.sin_family = AF_INET;
          		server.sin_port = htons( 23 );
 	 		setsockopt(socket_desc, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
