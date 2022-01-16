@@ -38,9 +38,9 @@ enum simode {
     game = 4,
     aux = 5,
     cbl = 7,
-    tuner = 8,
-    phono = 9,
-    tv = 10,
+    tuner = 108,
+    phono = 109,
+    tv = 110,
     /*
      * Note: For non-video sources
      * You can use numbers over 100 to prevent certain
@@ -423,7 +423,7 @@ int watch_denon() {
                  		printf("Could not recreate socket");
 				return 1;
          		}
-         		server.sin_addr.s_addr = inet_addr("192.168.1.45");
+         		server.sin_addr.s_addr = inet_addr(ip_address);
          		server.sin_family = AF_INET;
          		server.sin_port = htons( 23 );
 	 		setsockopt(socket_desc, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof tv);
