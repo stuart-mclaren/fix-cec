@@ -38,9 +38,9 @@ enum simode {
     game = 4,
     aux = 5,
     cbl = 7,
-    tuner = 108,
-    phono = 109,
-    tv = 110,
+    tuner = 8,
+    phono = 9,
+    tv = 10,
     /*
      * Note: For non-video sources
      * You can use numbers over 100 to prevent certain
