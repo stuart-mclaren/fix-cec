@@ -34,13 +34,16 @@ enum simode {
     /*
      * Note: numbers here are completely arbitrary
      */
-    dvd = 2,
-    game = 4,
-    aux = 5,
-    cbl = 7,
-    tuner = 8,
-    phono = 9,
-    tv = 10,
+    dvd    = 1,
+    game   = 2,
+    aux1   = 3,
+    aux2   = 4,
+    cbl    = 5,
+    bluray = 6,
+    cd     = 7,
+    tuner  = 8,
+    phono  = 9,
+    tv     = 10, /* TV Audio */
     /*
      * Note: For non-video sources
      * You can use numbers over 100 to prevent certain
@@ -51,7 +54,7 @@ enum simode {
      *
      * tuner = 108,
      * phono = 109,
-     * tv = 110,
+     * tv    = 110,
     */
 };
 
@@ -94,15 +97,15 @@ void power_off_projector() {
 	int i = 0;
 	while (1){
 		if (PROJSTATE == off){
-			std::cerr << "Successfully turned off the TV" << std::endl;
+			std::cerr << "Successfully turned off the projector" << std::endl;
 			return;
 		}
 		i++;
 		if (i == 60){
-			std::cerr << "Failed to turn off the TV: attempt " << i << std::endl;
+			std::cerr << "Failed to turn off the projector: attempt " << i << std::endl;
 			return;
 		}
-		std::cerr << "Turning off the TV: attempt " << i << std::endl;
+		std::cerr << "Turning off the projector: attempt " << i << std::endl;
 		cec_off();
 		usleep(500000); // microseconds
 	}
@@ -154,7 +157,7 @@ void cec_callback(void *callback_data, uint32_t reason, uint32_t param1, uint32_
 			" " << (uint32_t)message.payload[1] <<
 			" " << (uint32_t)message.payload[2] << std::endl;
 
-		// Detect when the TV is being told to turn on. Check the power
+		// Detect when the projector is being told to turn on. Check the power
 		// status of the receiver, because if it's not on we'll want to
 		// turn it on.
 		if (message.length == 1 &&
@@ -260,7 +263,7 @@ void cec_callback(void *callback_data, uint32_t reason, uint32_t param1, uint32_
 			*/
 		}
 
-		// Detect when the TV is being told to go into standby. It
+		// Detect when the projector is being told to go into standby. It
 		// ignores that command, so force it to power off using the
 		// serial port instead.
 		//
@@ -372,10 +375,18 @@ void handleDenonProtocolMessage(char *read_buf){
 		} else if (strcmp("SIAUX1", read_buf) == 0) {
 			if (SI == si_unknown ){
 				/* This was triggered by initial SI? */
-				SI = aux;
+				SI = aux1;
 				return;
 			}
-			SI = aux;
+			SI = aux1;
+			power_on_projector();
+		} else if (strcmp("SIAUX1", read_buf) == 0) {
+			if (SI == si_unknown ){
+				/* This was triggered by initial SI? */
+				SI = aux2;
+				return;
+			}
+			SI = aux2;
 			power_on_projector();
 		} else if (strcmp("SISAT/CBL", read_buf) == 0) {
 			if (SI == si_unknown ){
@@ -383,6 +394,22 @@ void handleDenonProtocolMessage(char *read_buf){
 				return;
 			}
 			SI = cbl;
+			power_on_projector();
+		} else if (strcmp("SIBD", read_buf) == 0) {
+			if (SI == si_unknown ){
+				/* This was triggered by initial SI? */
+				SI = bluray;
+				return;
+			}
+			SI = bluray;
+			power_on_projector();
+		} else if (strcmp("SICD", read_buf) == 0) {
+			if (SI == si_unknown ){
+				/* This was triggered by initial SI? */
+				SI = cd;
+				return;
+			}
+			SI = cd;
 			power_on_projector();
 		} else if (strcmp("PWON", read_buf) == 0) {
 			power_on_projector();
