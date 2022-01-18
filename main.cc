@@ -329,15 +329,28 @@ void handleDenonProtocolMessage(char *read_buf){
 		std::cerr << "DPSI: SI=" << SI << std::endl;
 		std::cerr << "DP: " << read_buf << std::endl;
 		if (strcmp("SITUNER", read_buf) == 0) {
-			/* This may or may not have been triggered by initial SI? */
+			if (SI == si_unknown ){
+				/* This was triggered by initial SI? */
+				SI = tuner;
+				return;
+			}
 			SI = tuner;
 			power_on_projector();
 		} else if (strcmp("SIPHONO", read_buf) == 0) {
-			/* This may or may not have been triggered by initial SI? */
+			if (SI == si_unknown ){
+				/* This was triggered by initial SI? */
+				SI = phono;
+				return;
+			}
 			SI = phono;
 			power_on_projector();
 		} else if (strcmp("SITV", read_buf) == 0) {
 			/* This may or may not have been triggered by initial SI? */
+			if (SI == si_unknown ){
+				/* This was triggered by initial SI? */
+				SI = tv;
+				return;
+			}
 			SI = tv;
 			power_on_projector();
 		} else if (strcmp("SIDVD", read_buf) == 0) {
