@@ -4,7 +4,7 @@ fix-cec: main.cc
 clean:
 	rm fix-cec
 
-install:
+install: fix-cec
 	cp fix-cec /usr/local/bin
 	cp fix-cec.service /etc/systemd/system/
 	systemctl enable fix-cec
